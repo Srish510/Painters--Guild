@@ -126,14 +126,11 @@ def perform_redo():
                 canvas.create_polygon(i[1], fill=action[2], outline=action[2], width=action[3])
         elif action[0] in shapes:        
             shape_id = draw_shape(action[0], action[2],action[3],action[4])
-            canvas.configure(height= action[5], width = action[6])
             action = (action[0], shape_id, action[2],action[3],action[4])
         elif action[0] == "text":
             canvas.create_text(action[2], text=action[3], fill=action[4], font=action[5])
-            canvas.configure(height= action[6], width = action[7])
         elif action[0] == "image":
             canvas.create_image(action[2], anchor=NW, image=action[3])
-            canvas.configure(height= action[4], width = action[5])
 
 #Undo Button:
 undo_image = customtkinter.CTkImage(Image.open("undo.png"), size = (30,30))
