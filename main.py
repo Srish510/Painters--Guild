@@ -68,9 +68,12 @@ save.place(x=10, y=23, anchor=W)
 
 #Clear Button:
 def clear_canv():
+    global undo_stack, redo_stack
     clearCanv = messagebox.askyesno("Painters' Guild", "Do you want to clear the canvas?")
     if clearCanv:
         canvas.delete("all")
+    undo_stack = []
+    redo_stack = []
 
 clear = customtkinter.CTkButton(util, text="Clear", width = 20, text_color = "white", command = clear_canv)
 clear.place(x=60, y=23, anchor=W)
