@@ -93,7 +93,7 @@ background.place(x=110, y=23, anchor=W)
 
 #Clear Pencil Button:
 def clear_pencil():
-
+    global undo_stack, redo_stack
     clearPen = messagebox.askyesno("Painters' Guild", "Do you want to clear all pencil strokes? This action can't be undone!")
     if clearPen:
         for item in pencilMark:
