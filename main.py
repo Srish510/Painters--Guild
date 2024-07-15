@@ -98,6 +98,8 @@ def clear_pencil():
     if clearPen:
         for item in pencilMark:
             canvas.delete(item)
+        undo_stack = []
+        redo_stack = []
 
 clearPencil = customtkinter.CTkButton(util, text="Clear Pencil", width = 20, text_color = "white", command = clear_pencil)
 clearPencil.place(x = 200, y=23, anchor=W)
