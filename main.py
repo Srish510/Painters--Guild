@@ -93,7 +93,7 @@ background.place(x=110, y=23, anchor=W)
 
 #Clear Pencil Button:
 def clear_pencil():
-    global undo_stack, redo_stack
+    global redo_stack, undo_stack
     clearPen = messagebox.askyesno("Painters' Guild", "Do you want to clear all pencil strokes? This action can't be undone!")
     if clearPen:
         for item in pencilMark:
@@ -234,6 +234,8 @@ def usePencil():
         state = "draw"
         if isToggled(pencil):
             untoggle(pencil)
+            if erased == True:
+                drawColor = prevColor
             state = ""
         else:
             toggle(pencil)
@@ -312,7 +314,7 @@ def untoggle2(button):
     button.configure(fg_color = "gray92", border_color = "gray92")
 
 def useText():
-        global state, textFrame, italics, bold, underline, available_fonts
+        global state, textFrame, italics, bold, underline, available_fonts, erased, drawColor
         state = "text"
         if isToggled(text):
             untoggle(text)
@@ -340,6 +342,9 @@ def useText():
             fontSelect = customtkinter.CTkOptionMenu(textFrame, values=available_fonts, command = font_select)
             fontSelect.place(x = 450, y = 18)
             fontSelect.set('Arial')
+            if erased == True:
+                drawColor = prevColor
+        erased = False
 
 def useItal():
     global style
@@ -374,9 +379,10 @@ text.place(x = 5, y = 55)
 
 #Image:
 def useImage():
-    global state
+    global state, erased
     state = "image"
     toggle(image)
+    erased = False
 
 image_image = customtkinter.CTkImage(Image.open("image.png"), size = (27,27))
 image = customtkinter.CTkButton(kit, fg_color = "transparent", text = "", image = image_image, width = 5, hover_color = "white", command = useImage)
@@ -403,10 +409,15 @@ shapeLabel = customtkinter.CTkLabel(shapeFrame, text = "Shapes", font = ("Lucidi
 shapeLabel.place(x = 80, y = 25, anchor = W)
 
 def shapeChoice(choice):
+    global drawColor
     global state
+    global erased
     state = choice
+    if erased:
+        drawColor = prevColor
     for item in kit.winfo_children():
         untoggle(item)
+    erased = False
 
 
 shapes = ["Line", "Rhombus", "Rectangle", "Triangle", "Ellipse"]
