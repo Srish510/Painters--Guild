@@ -318,6 +318,8 @@ def useText():
         state = "text"
         if isToggled(text):
             untoggle(text)
+            toggle(pencil)
+            state = "draw"
         else:
             toggle(text)
             textFrame = Frame(root,height = 80, width = 1000, bg = "gray92")
@@ -394,6 +396,8 @@ def useDrop():
         state = "color_picker"
         if isToggled(drop):
             untoggle(drop)
+            toggle(pencil)
+            state = "draw"
         else:
             toggle(drop)
 
